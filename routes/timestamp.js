@@ -14,6 +14,10 @@ router.get('/', function(req, res, next) {
   res.end(getTimeStamp());
 });
 
+//   user inputs http:localhost:3000/timestamp/ls
+//               http:localhost:3000/timestamp/hostname
+// where app.js routes to this file via timestamp and delivers the subapp routing paramter
+// of either /ls or /hostname
 // shellcmd can open up to reuse of exiting docusign java if we dont want to redo in nodejs
 // or can call out to form conversion if we want to make form conversions interactive.
 router.get('/ls', function(req, res, next) {

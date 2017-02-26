@@ -25,15 +25,27 @@ function makeElem(type,txt){
 	
 function getServerMsg(){
 	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function(){
+	xhttp.onreadystatechange = function(){  // event handler
 		if(this.readyState===4&&this.status===200){
+			console.log('getAllResponseHeaders', xhttp.getAllResponseHeaders());
+			console.log('response',xhttp.response);
+			console.log('status',xhttp.status, xhttp.statusText, xhttp.responseType, xhttp.responseURL);
 			for (x in this){
-				console.log(x,this[x]);
+				if (typeof this[x] !== 'function')
+				console.log(typeof this[x] , x,this[x]);
 			}
 		}
 	};
-	xhttp.open('GET','timestamp',true);
-	xhttp.send();
+	xhttp.onerror = function(err){
+		console.log('xhttp err', err);
+	}
+	xhttp.onload = function(){
+		console.log('onload');
+	}
+
+	xhttp.open('GET','timestamp',true); // method, url, async, user, passwd 
+//	xhttp.setRequestHeader(header,value);`
+	xhttp.send(); // async
 }
 
 

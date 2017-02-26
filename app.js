@@ -9,7 +9,6 @@ var serveIndex = require('serve-index');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var timestamp = require('./routes/timestamp');
-console.log('timestamp',timestamp);
 var app = express();
 
 // view engine setup
@@ -24,12 +23,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 var hourMs = 1000*60*60;
 
+
+app.use('/',serveIndex((__dirname + '/public')));
 // orig default to make root url use dir public as root
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 // url /public mapped to phys dir ./public and hierachal longer url map to phys subdir
-app.use('/public',express.static(path.join(__dirname, 'public')));
+app.use('/',express.static(path.join(__dirname, 'public')));
 //app.use(express.static(path.join(__dirname, 'public'),{maxAge:hourMs}));
-app.use('/public',serveIndex((__dirname + '/public')));
 
 // note we could use an array to allow multiple mount paths to sub app route handler.
 // the subapp route handler only needs to match the next url segment
