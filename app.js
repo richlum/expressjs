@@ -8,7 +8,7 @@ var serveIndex = require('serve-index');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var timestamp = require('./routes/timestamp');
+var hostcmd = require('./routes/hostcmd');
 var app = express();
 
 // view engine setup
@@ -35,7 +35,7 @@ app.use('/',express.static(path.join(__dirname, 'public')));
 // the subapp route handler only needs to match the next url segment
 app.use('/', index);
 app.use('/users', users);
-app.use('/timestamp', timestamp);
+app.use('/hostcmd', hostcmd);
 
 
 // catch 404 and forward to error handler
