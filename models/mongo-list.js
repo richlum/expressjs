@@ -1,7 +1,13 @@
 
 var MongoClient = require('mongodb').MongoClient,
-	url = 'mongodb://192.168.1.112:27017';
+	url = 'mongodb://192.168.1.112:27017/initialnode';
 
+
+/* note mongodb nodejs allows only one database per connection, you cant
+	access multiple databases on the same connection.
+	http://stackoverflow.com/questions/19474712/mongoose-and-multiple-database-in-single-node-js-project
+	sugests setting multiple connections, one per database
+*/
 
 MongoClient.connect(url, function(err,db){
 	if(err)
@@ -21,13 +27,14 @@ MongoClient.connect(url, function(err,db){
 		}
 		dbs.databases.forEach(function(adb){
 			console.log('db name:',adb.name);
-			db.collection(adb.name,function(err,collection){
+			//db.collection(adb.name,function(err,collection){
+			db.collection('test',function(err,collection){
 				//console.log('db2name:',adb.name);
 				//console.log('collection', collection);
 				//console.log('collection', collection.s.dbName);
-				collection.count(function(err,cnt){
+				collection.find().count(function(err,cnt){
 					if (err) return console.log(err);
-					console.log(adb.name , ' count = ',cnt);
+					console.log(adb.name ,collection.collectionName, ' count = ',cnt);
 				});
 
 
